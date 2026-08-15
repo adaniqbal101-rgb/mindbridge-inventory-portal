@@ -1,66 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+  <base target="_top">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mindbridge Inventory Portal</title>
   <style>
     * { box-sizing: border-box; }
     html, body {
-      margin: 0; padding: 0; width: 100%; min-height: 100vh;
+      margin: 0; padding: 0; width: 100%; min-height: 100%;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
       background: #0f172a; color: #f1f5f9;
     }
-
-    /* GALAXY BACKGROUND FOR LOGIN */
-    .login-wrapper {
-      min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;
-      background: radial-gradient(ellipse at bottom, #1e293b 0%, #0f172a 100%);
-      position: relative; overflow: hidden;
-    }
-    .login-wrapper::before {
-      content: ""; position: absolute; inset: 0;
-      background: 
-        radial-gradient(2px 2px at 30px 40px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 70px 120px, #f28c28, rgba(0,0,0,0)),
-        radial-gradient(1.5px 1.5px at 150px 80px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 240px 200px, #ffb703, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 410px 280px, #f28c28, rgba(0,0,0,0));
-      background-repeat: repeat; background-size: 500px 500px; opacity: 0.65;
-      animation: twinkleStars 10s infinite linear; z-index: 1;
-    }
-    @keyframes twinkleStars {
-      0% { transform: translateY(0px); opacity: 0.65; }
-      50% { opacity: 0.35; }
-      100% { transform: translateY(-500px); opacity: 0.65; }
-    }
-
-    .login-card {
-      width: 100%; max-width: 420px; background: rgba(30, 41, 59, 0.85); 
-      backdrop-filter: blur(16px); border-radius: 20px; padding: 40px 32px 30px; 
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 25px rgba(242, 140, 40, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.12); border-top: 4px solid #f28c28; position: relative; z-index: 10;
-    }
-
-    .logo-header-wrap {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      margin-bottom: 22px; background: #111827; padding: 12px 24px; border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    }
-    .brand-icon-m { height: 28px; width: auto; }
-    .brand-text-merged { font-size: 22px; font-weight: 500; color: #ffffff; letter-spacing: -0.5px; font-family: 'Segoe UI', sans-serif; }
-
-    .login-card h1 { margin: 0 0 4px; text-align: center; font-size: 21px; font-weight: 700; color: #f8fafc; }
-    .subtitle { text-align: center; color: #94a3b8; font-size: 13px; font-weight: 500; margin-bottom: 28px; }
-
-    .field { margin-bottom: 20px; position: relative; }
-    label { display: block; margin-bottom: 8px; font-size: 11px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.6px; }
-    input, select, textarea {
-      width: 100%; height: 44px; padding: 0 14px; border: 1.5px solid rgba(255, 255, 255, 0.15);
-      border-radius: 10px; outline: none; font-size: 13px; background: #0f172a; color: #f8fafc; transition: all 0.2s ease;
-    }
-    textarea { height: 70px; padding: 10px 14px; resize: vertical; }
-    input:focus, select:focus, textarea:focus { border-color: #f28c28; box-shadow: 0 0 0 3px rgba(242, 140, 40, 0.25); }
+    body { min-height: 100vh; }
 
     /* HEADER STYLING */
     .header {
@@ -68,87 +20,144 @@
       padding: 12px 28px; display: flex; align-items: center; justify-content: space-between;
       gap: 15px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,.4);
     }
-    .brand { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+    .brand { display: flex; align-items: center; gap: 14px; min-width: 0; cursor: pointer; }
     .brand-logo-container {
-      display: flex; align-items: center; gap: 8px; background: #111827; border-radius: 10px; padding: 6px 16px;
+      display: flex; align-items: center; gap: 8px; 
+      background: #111827; border-radius: 10px; padding: 6px 16px;
       border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
-    .brand-title h1 { margin: 0; color: #f28c28; font-size: 18px; font-weight: 700; }
-    .brand-title div { color: #94a3b8; font-size: 11px; }
+    .brand-icon-m { height: 24px; width: auto; object-fit: contain; }
+    .brand-text-merged { font-size: 19px; font-weight: 500; color: #ffffff; letter-spacing: -0.5px; line-height: 1; font-family: 'Segoe UI', sans-serif; }
+    .brand-title h1 { margin: 0; color: #f28c28; font-size: 18px; font-weight: 700; line-height: 1.2; letter-spacing: -0.3px; }
+    .brand-title div { margin-top: 2px; color: #94a3b8; font-size: 11px; }
 
+    /* NAVIGATION CONTAINER */
     .nav-container { display: flex; align-items: center; gap: 8px; position: relative; }
-    .home-btn-nav, .nav-dropdown-btn {
+    .home-btn-nav {
       background: rgba(242, 140, 40, 0.15); color: #f28c28; border: 1px solid rgba(242, 140, 40, 0.4);
-      padding: 8px 16px; border-radius: 9px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.25s ease;
+      padding: 8px 16px; border-radius: 9px; font-size: 12px; font-weight: 700; cursor: pointer;
+      transition: all 0.25s ease; outline: none; display: flex; align-items: center; gap: 6px;
     }
-    .nav-dropdown-btn { background: #334155; color: #f8fafc; border-color: #475569; }
-    .home-btn-nav:hover, .nav-dropdown-btn:hover { background: #f28c28; color: #fff; }
-
+    .home-btn-nav:hover { background: #f28c28; color: #fff; box-shadow: 0 4px 12px rgba(242,140,40,0.35); }
+    .nav-dropdown-btn {
+      background: #334155; color: #f8fafc; border: 1px solid #475569;
+      padding: 8px 14px; border-radius: 9px; font-size: 12px; font-weight: 700; cursor: pointer;
+      transition: all 0.25s ease; outline: none; display: flex; align-items: center; gap: 6px;
+    }
+    .nav-dropdown-btn:hover { background: #475569; border-color: #f28c28; color: #f28c28; }
     .nav-dropdown-menu {
       display: none; position: absolute; left: 0; top: 44px; background: #1e293b;
       border: 1px solid #334155; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      min-width: 210px; z-index: 2000; padding: 6px;
+      min-width: 210px; z-index: 2000; overflow: hidden; padding: 6px;
     }
     .nav-dropdown-menu button {
       width: 100%; background: transparent; color: #e2e8f0; border: none; padding: 10px 14px;
       text-align: left; font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 8px;
+      display: flex; align-items: center; gap: 8px; transition: all 0.15s ease;
     }
     .nav-dropdown-menu button:hover { background: rgba(242,140,40,0.18); color: #f28c28; }
 
+    .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; position: relative; }
+    .user-profile-menu { position: relative; display: inline-block; }
     .user-badge {
       background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(242, 140, 40, 0.4);
-      padding: 6px 14px; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column;
+      padding: 6px 14px; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; 
+      justify-content: center; transition: all 0.25s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-    .badge-username { font-size: 13px; font-weight: 700; color: #f8fafc; }
-    .badge-access-level { font-size: 10px; font-weight: 600; color: #f28c28; text-transform: uppercase; }
+    .user-badge:hover { background: rgba(242,140,40,.18); border-color: #f28c28; transform: translateY(-1px); }
+    .badge-username { font-size: 13px; font-weight: 700; color: #f8fafc; line-height: 1.2; display: flex; align-items: center; gap: 6px; }
+    .badge-username::after { content: '▾'; color: #f28c28; font-size: 11px; }
+    .badge-access-level { font-size: 10px; font-weight: 600; color: #f28c28; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
 
     .user-dropdown {
       display: none; position: absolute; right: 0; top: 48px; background: #1e293b;
-      border: 1px solid #334155; border-radius: 10px; min-width: 185px; z-index: 2000;
+      border: 1px solid #334155; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      min-width: 185px; z-index: 2000; overflow: hidden;
     }
-    .user-dropdown a { color: #e2e8f0; padding: 12px 16px; text-decoration: none; display: block; font-size: 12px; font-weight: 600; }
+    .user-dropdown a {
+      color: #e2e8f0; padding: 12px 16px; text-decoration: none; display: block;
+      font-size: 12px; font-weight: 600; transition: background 0.15s ease;
+    }
     .user-dropdown a:hover { background: rgba(242,140,40,0.18); color: #f28c28; }
 
-    /* LAYOUT & CARDS */
+    /* LOGIN STYLING */
+    .login-wrapper {
+      min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;
+      background: radial-gradient(ellipse at bottom, #1e293b 0%, #0f172a 100%); position: relative; overflow: hidden;
+    }
+    .login-wrapper::before {
+      content: ""; position: absolute; inset: 0;
+      background: 
+        radial-gradient(2px 2px at 30px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 70px 120px, #f28c28, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 150px 80px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 240px 200px, #ffb703, rgba(0,0,0,0));
+      background-repeat: repeat; background-size: 500px 500px; opacity: 0.65; z-index: 1;
+    }
+    .login-card {
+      width: 100%; max-width: 420px; background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(16px);
+      border-radius: 20px; padding: 40px 32px 30px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-top: 4px solid #f28c28; position: relative; z-index: 10;
+    }
+
+    /* PAGE LAYOUT */
     .page { width: 100%; max-width: 1450px; margin: 0 auto; padding: 25px 22px; }
-    .card { background: #1e293b; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.3); border: 1px solid #334155; padding: 26px; border-top: 4px solid #f28c28; margin-bottom: 22px; }
-    .section-title { margin: 0; font-size: 20px; font-weight: 700; color: #f8fafc; }
+    .card { background: #1e293b; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.3); border: 1px solid #334155; }
+    .search-card { padding: 26px; border-top: 4px solid #f28c28; margin-bottom: 22px; }
+    .card-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; flex-wrap: wrap; gap: 12px; }
+    .section-title { margin: 0; font-size: 20px; font-weight: 700; color: #f8fafc; letter-spacing: -0.3px; }
     .section-subtitle { margin: 4px 0 0; color: #94a3b8; font-size: 12px; }
 
-    /* HERO PORTAL */
-    .home-portal-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
+    /* STARTING HOME PORTAL HERO SECTION */
+    .home-portal-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px 60px; text-align: center; }
     .hero-logo-box {
       background: #111827; border-radius: 24px; padding: 24px 48px; border: 2px solid rgba(242, 140, 40, 0.3);
-      display: inline-flex; align-items: center; gap: 18px; margin-bottom: 30px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6); display: inline-flex; align-items: center; gap: 18px; margin-bottom: 30px;
     }
     .portal-heading { font-size: 28px; font-weight: 800; color: #f8fafc; margin: 0 0 8px; }
-    .portal-subheading { font-size: 14px; color: #94a3b8; margin: 0 0 45px; max-width: 600px; }
+    .portal-subheading { font-size: 14px; color: #94a3b8; margin: 0 0 45px; max-width: 600px; line-height: 1.6; }
 
     .portal-grid { display: grid; grid-template-columns: repeat(3, minmax(280px, 1fr)); gap: 25px; width: 100%; max-width: 1100px; }
     .portal-card {
-      background: #1e293b; border: 1px solid #334155; border-radius: 20px; padding: 35px 25px;
-      text-align: center; cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center;
+      background: #1e293b; border: 1px solid #334155; border-radius: 20px; padding: 35px 25px; text-align: center;
+      cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center;
     }
     .portal-card:hover { transform: translateY(-8px); border-color: #f28c28; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
     .portal-card-icon { width: 70px; height: 70px; background: rgba(15, 23, 42, 0.8); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 20px; }
     .portal-card-title { font-size: 18px; font-weight: 700; color: #f8fafc; margin: 0 0 10px; }
-    .portal-card-desc { font-size: 12px; color: #94a3b8; margin: 0 0 20px; flex-grow: 1; }
+    .portal-card-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; margin: 0 0 20px; flex-grow: 1; }
     .portal-card-btn { background: rgba(255,255,255,0.06); color: #f28c28; border: 1px solid rgba(242, 140, 40, 0.3); padding: 10px 20px; border-radius: 10px; font-size: 12px; font-weight: 700; width: 100%; }
 
-    /* GRIDS & BUTTONS */
+    /* FILTERS GRID */
     .filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .field { position: relative; }
+    .field label { display: block; margin-bottom: 8px; font-size: 11px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px; }
+    .field input, .field select, .field textarea {
+      width: 100%; height: 44px; border: 1.5px solid #475569; border-radius: 10px; padding: 0 14px; outline: none; background: #0f172a; color: #f8fafc; font-size: 13px; font-weight: 500;
+    }
+    .field textarea { height: 70px; padding: 10px 14px; resize: vertical; }
+
+    .suggestions {
+      position: absolute; left: 0; right: 0; top: 76px; background: #0f172a; border: 1px solid #475569;
+      border-radius: 0 0 10px 10px; max-height: 230px; overflow-y: auto; z-index: 900; display: none; box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    }
+    .suggestion-item { padding: 11px 14px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #1e293b; color: #cbd5e1; }
+    .suggestion-item:hover { background: rgba(242,140,40,0.15); color: #f28c28; }
+
+    /* BUTTONS */
     .actions { display: flex; align-items: center; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
-    .btn {
+    .btn { 
       min-height: 44px; border: none; border-radius: 10px; padding: 0 24px; cursor: pointer; 
       font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.25s ease;
     }
-    .btn-primary { background: linear-gradient(135deg, #f28c28 0%, #d97311 100%); color: #fff; }
-    .btn-primary:hover { background: linear-gradient(135deg, #ff9838 0%, #e07a12 100%); }
+    .btn-primary { background: linear-gradient(135deg, #f28c28 0%, #d97311 100%); color: #fff; box-shadow: 0 4px 15px rgba(242,140,40,.35); }
+    .btn-primary:hover { background: linear-gradient(135deg, #ff9838 0%, #e07a12 100%); transform: translateY(-1px); }
     .btn-secondary { background: #334155; color: #f8fafc; border: 1px solid #475569; }
     .btn-light { background: rgba(255,255,255,0.05); color: #cbd5e1; border: 1px solid #475569; }
+    .btn-green { background: #10b981; color: #fff; }
 
-    /* SUMMARY STATS */
+    /* SUMMARY STATS GRID */
     .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; margin-top: 20px; }
     .summary-card { background: #1e293b; border: 1px solid #334155; border-radius: 14px; padding: 18px; }
     .summary-label { color: #94a3b8; font-size: 10px; font-weight: 700; text-transform: uppercase; }
@@ -158,19 +167,18 @@
     .summary-card.low .summary-value { color: #fbbf24; }
     .summary-card.out .summary-value { color: #f87171; }
 
-    /* TABLES */
-    .table-wrap { width: 100%; overflow-x: auto; margin-top: 15px; }
-    table { width: 100%; border-collapse: collapse; min-width: 700px; }
+    /* RESULTS TABLE */
+    .table-wrap { width: 100%; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 850px; }
     th { background: #0f172a; color: #cbd5e1; text-align: left; padding: 14px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
     td { padding: 14px 16px; border-bottom: 1px solid #334155; font-size: 12px; color: #e2e8f0; }
     .qty { font-weight: 800; font-size: 14px; color: #fff; }
     .empty { text-align: center; padding: 45px 20px; color: #64748b; }
 
-    .msg { min-height: 20px; margin-top: 12px; font-size: 12px; font-weight: 600; }
-    .msg.error { color: #f87171; }
-    .msg.success { color: #34d399; }
+    .search-message { min-height: 18px; margin-top: 12px; font-size: 12px; font-weight: 600; }
+    .search-message.error { color: #f87171; }
+    .search-message.success { color: #34d399; }
 
-    /* MODAL */
     .modal { display: none; position: fixed; z-index: 2000; inset: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
     .modal-content { background: #1e293b; padding: 28px; border-radius: 16px; width: 100%; max-width: 420px; border: 1px solid #334155; border-top: 4px solid #f28c28; }
 
@@ -178,41 +186,38 @@
     .footer strong { color: #f28c28; }
   </style>
 </head>
+
 <body>
 
-  <!-- PAGE 1: LOGIN SECTION -->
-  <div id="loginSection" class="login-wrapper">
+  <!-- VIEW: LOGIN -->
+  <div id="loginView" class="login-wrapper">
     <div class="login-card">
-      <div class="logo-header-wrap">
+      <div class="brand-logo-container" style="justify-content:center; margin-bottom: 20px;">
         <svg class="brand-icon-m" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
           <path d="M 15 95 C 25 70 35 45 42 60 C 52 82 62 105 75 118 C 88 128 105 105 135 65 C 150 45 160 30 170 35 C 180 40 188 75 195 110 L 180 115 C 172 85 168 52 162 50 C 152 48 140 70 120 98 C 98 128 78 135 60 110 C 48 92 40 70 32 75 C 25 80 18 100 10 102 Z" fill="#F28C28"/>
         </svg>
         <div class="brand-text-merged">mindbridge</div>
       </div>
-      <h1>Inventory Portal</h1>
-      <div class="subtitle">Secure Local Web App</div>
+      <h1 style="text-align: center; margin:0 0 5px; font-size:20px;">Inventory Portal</h1>
+      <div style="text-align: center; color:#94a3b8; font-size:12px; margin-bottom:20px;">Secure Access</div>
 
-      <form onsubmit="event.preventDefault(); login();">
-        <div class="field">
-          <label for="username">Username</label>
-          <input id="username" type="text" placeholder="Enter username (Default: admin)">
+      <form onsubmit="event.preventDefault(); handleLogin();">
+        <div class="field" style="margin-bottom: 15px;">
+          <label>Username</label>
+          <input id="loginUsername" type="text" placeholder="Enter username" required>
         </div>
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" type="password" placeholder="Enter password (Default: Admin@123)">
+        <div class="field" style="margin-bottom: 15px;">
+          <label>Password</label>
+          <input id="loginPassword" type="password" placeholder="Enter password" required>
         </div>
-        <button id="loginButton" class="btn btn-primary" style="width: 100%;" type="submit">LOGIN TO DASHBOARD</button>
+        <button class="btn btn-primary" style="width: 100%;" type="submit">LOGIN TO DASHBOARD</button>
       </form>
-      <div id="loginMsg" class="msg"></div>
-      <div class="footer">
-        Powered by <strong>Mindbridge</strong><br>
-        Created By Muhammad Adan Iqbal &amp; Inventory Team
-      </div>
+      <div id="loginMsg" class="search-message" style="text-align: center;"></div>
     </div>
   </div>
 
-  <!-- PAGE 2: DASHBOARD SECTION -->
-  <div id="dashboardSection" style="display: none;">
+  <!-- VIEW: MAIN DASHBOARD -->
+  <div id="mainDashboardView" style="display: none;">
     <header class="header">
       <div class="brand" onclick="switchView('HOME')">
         <div class="brand-logo-container">
@@ -228,29 +233,31 @@
       </div>
 
       <div class="nav-container">
-        <button class="home-btn-nav" onclick="switchView('HOME')">🌐 Portal</button>
+        <button class="home-btn-nav" onclick="switchView('HOME')"> 🌐 Operations Portal</button>
         <button class="nav-dropdown-btn" onclick="toggleNavDropdown(event)">🧩 Quick Switch ▾</button>
         <div id="navDropdownMenu" class="nav-dropdown-menu">
-          <button onclick="switchView('SEARCH'); hideNavDropdown();">🔍 Search Dashboard</button>
-          <button onclick="switchView('STOCK_IN'); hideNavDropdown();">📥 Stock In Entry</button>
-          <button onclick="switchView('STOCK_OUT'); hideNavDropdown();">📤 Stock Out Entry</button>
+          <button id="ddOptSearch" onclick="switchView('SEARCH'); hideNavDropdown();">🔍 Search Dashboard</button>
+          <button id="ddOptStockIn" onclick="switchView('STOCK_IN'); hideNavDropdown();">📥 Stock In Entry</button>
+          <button id="ddOptStockOut" onclick="switchView('STOCK_OUT'); hideNavDropdown();">📤 Stock Out Entry</button>
         </div>
       </div>
 
-      <div class="user-profile-menu">
-        <div class="user-badge" onclick="toggleUserDropdown(event)">
-          <div id="badgeName" class="badge-username">Admin</div>
-          <div id="badgeRole" class="badge-access-level">System Administrator</div>
-        </div>
-        <div id="userDropdown" class="user-dropdown">
-          <a href="javascript:void(0)" onclick="openOwnPasswordModal()">🔑 Change Password</a>
-          <a href="javascript:void(0)" onclick="logout()">🚪 Logout</a>
+      <div class="header-right">
+        <div class="user-profile-menu">
+          <div class="user-badge" onclick="toggleUserDropdown(event)">
+            <div id="badgeName" class="badge-username">Loading...</div>
+            <div id="badgeRole" class="badge-access-level">Operations Member</div>
+          </div>
+          <div id="userDropdown" class="user-dropdown">
+            <a href="javascript:void(0)" onclick="openOwnPasswordModal()">🔑 Change Password</a>
+            <a href="javascript:void(0)" onclick="handleLogout()">🚪 Logout</a>
+          </div>
         </div>
       </div>
     </header>
 
     <main class="page">
-      <!-- VIEW: HOME PORTAL -->
+      <!-- VIEW 0: HOME PORTAL -->
       <div id="viewHomePortal">
         <div class="home-portal-container">
           <div class="hero-logo-box">
@@ -260,47 +267,59 @@
             <div class="brand-text-merged">mindbridge</div>
           </div>
           <h1 class="portal-heading">Inventory Control Center</h1>
-          <p class="portal-subheading">Select a module below to manage stocks or record entries.</p>
+          <p class="portal-subheading">Welcome to Mindbridge Inventory Portal. Select a module below to manage stocks or record entries.</p>
+
           <div class="portal-grid">
-            <div class="portal-card" onclick="switchView('SEARCH')">
+            <div class="portal-card" id="cardPortalSearch" onclick="switchView('SEARCH')">
               <div class="portal-card-icon">🔍</div>
               <h3 class="portal-card-title">Search Dashboard</h3>
-              <p class="portal-card-desc">Lookup stock levels, variant quantities, and out-of-stock items.</p>
+              <p class="portal-card-desc">Lookup stock levels, variant quantities, room filters, and out-of-stock items in real-time.</p>
               <button class="portal-card-btn">OPEN DASHBOARD ➔</button>
             </div>
-            <div class="portal-card" onclick="switchView('STOCK_IN')">
+            <div class="portal-card" id="cardPortalStockIn" onclick="switchView('STOCK_IN')">
               <div class="portal-card-icon">📥</div>
               <h3 class="portal-card-title">Stock In Entry</h3>
-              <p class="portal-card-desc">Record received inventory, items from suppliers & update database.</p>
+              <p class="portal-card-desc">Record received inventory, items from suppliers, gate pass details & auto-update List Index.</p>
               <button class="portal-card-btn">RECORD RECEIVING ➔</button>
             </div>
-            <div class="portal-card" onclick="switchView('STOCK_OUT')">
+            <div class="portal-card" id="cardPortalStockOut" onclick="switchView('STOCK_OUT')">
               <div class="portal-card-icon">📤</div>
               <h3 class="portal-card-title">Stock Out Entry</h3>
-              <p class="portal-card-desc">Issue inventory items to rooms or staff & track gate passes.</p>
+              <p class="portal-card-desc">Issue inventory items to rooms or staff, track gate passes and export transaction logs.</p>
               <button class="portal-card-btn">RECORD ISSUANCE ➔</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- VIEW: SEARCH DASHBOARD -->
+      <!-- VIEW 1: SEARCH DASHBOARD -->
       <div id="viewSearchDashboard" style="display: none;">
-        <section class="card">
-          <h2 class="section-title">Inventory Search Dashboard</h2>
-          <p class="section-subtitle">Select filters or leave blank to view all entries.</p>
-          <div class="filter-grid" style="margin-top: 15px;">
+        <section class="card search-card">
+          <div class="card-header-flex">
+            <div>
+              <h2 class="section-title">Inventory Search Dashboard</h2>
+              <p class="section-subtitle">Select or type Room/Item. Leave blank to view all.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <!-- IMPORT GOOGLE SHEET CSV FEATURE -->
+              <input type="file" id="importCsvFile" accept=".csv" style="display: none;" onchange="importOldDataCSV(event)">
+              <button class="btn btn-green" onclick="document.getElementById('importCsvFile').click()">📥 IMPORT OLD SHEET DATA</button>
+              <button class="btn btn-secondary" onclick="exportSearchResultsCSV()">📤 EXPORT REPORT (CSV)</button>
+            </div>
+          </div>
+
+          <div class="filter-grid">
             <div class="field">
               <label>Room Name</label>
-              <select id="searchRoomSelect"><option value="">All Rooms</option></select>
+              <input id="roomInput" type="text" placeholder="Select or type room (or ALL)" oninput="filterSearchData()">
             </div>
             <div class="field">
               <label>Item Name</label>
-              <select id="searchItemSelect"><option value="">All Items</option></select>
+              <input id="itemInput" type="text" placeholder="Select or type item (or ALL)" oninput="filterSearchData()">
             </div>
             <div class="field">
               <label>Stock Status</label>
-              <select id="searchStatusSelect">
+              <select id="stockStatusSelect" onchange="filterSearchData()">
                 <option value="">All Statuses</option>
                 <option value="IN_STOCK">🟢 In Stock (20+)</option>
                 <option value="LOW_STOCK">🟡 Low Stock (&lt;20)</option>
@@ -308,13 +327,13 @@
               </select>
             </div>
           </div>
+
           <div class="actions">
-            <button class="btn btn-primary" onclick="searchInventory()">🔎 SEARCH</button>
-            <button class="btn btn-light" onclick="clearFilters()">🧹 CLEAR</button>
+            <button class="btn btn-primary" onclick="filterSearchData()">🔎 SEARCH</button>
+            <button class="btn btn-light" onclick="clearSearchFilters()">🧹 CLEAR</button>
           </div>
         </section>
 
-        <!-- SUMMARY STATS -->
         <section class="summary-grid">
           <div class="summary-card total"><div class="summary-label">Total Variants</div><div id="totalVariants" class="summary-value">0</div></div>
           <div class="summary-card total"><div class="summary-label">Total Quantity</div><div id="totalQty" class="summary-value">0</div></div>
@@ -323,66 +342,59 @@
           <div class="summary-card out"><div class="summary-label">Out Of Stock</div><div id="outOfStock" class="summary-value">0</div></div>
         </section>
 
-        <!-- RESULTS TABLE -->
-        <section class="card" style="margin-top: 20px;">
-          <h2 class="section-title">Inventory Results</h2>
+        <section class="card" style="margin-top: 22px; padding: 0; overflow: hidden;">
+          <div style="padding: 18px 24px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin: 0; font-size: 16px;">Inventory Results</h2>
+            <div id="resultCount" style="background: rgba(242,140,40,0.15); color: #f28c28; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;">0 records</div>
+          </div>
           <div class="table-wrap">
             <table>
               <thead>
-                <tr>
-                  <th>Room</th>
-                  <th>Item</th>
-                  <th>Detail</th>
-                  <th>Description</th>
-                  <th>Quantity</th>
-                  <th>Status</th>
-                </tr>
+                <tr><th>Room</th><th>Item</th><th>Detail</th><th>Description</th><th>Quantity</th><th>Status</th></tr>
               </thead>
               <tbody id="resultsBody">
-                <tr><td colspan="6" class="empty">Click SEARCH to view results.</td></tr>
+                <tr><td colspan="6" class="empty">No inventory records found. Import CSV or record Stock In.</td></tr>
               </tbody>
             </table>
           </div>
         </section>
       </div>
 
-      <!-- VIEW: STOCK IN -->
+      <!-- VIEW 2: STOCK IN ENTRY -->
       <div id="viewStockIn" style="display: none;">
-        <section class="card">
+        <section class="card search-card">
           <h2 class="section-title">📥 Stock In Entry Form</h2>
-          <p class="section-subtitle">Record inventory receiving into local database.</p>
-          <form style="margin-top: 15px;" onsubmit="event.preventDefault(); submitStockIn();">
+          <form onsubmit="event.preventDefault(); submitStockIn();" style="margin-top: 15px;">
             <div class="form-grid">
               <div class="field"><label>Receiving Date</label><input type="date" id="inDate" required></div>
               <div class="field"><label>Item Name</label><input type="text" id="inItem" required placeholder="Item name"></div>
               <div class="field"><label>Detail</label><input type="text" id="inDetail" placeholder="Detail"></div>
-              <div class="field"><label>Unit</label><input type="text" id="inUnit" placeholder="Pcs, Box, Mtr"></div>
+              <div class="field"><label>Unit</label><input type="text" id="inUnit" placeholder="e.g. Pcs, Box"></div>
               <div class="field"><label>Received Qty</label><input type="number" id="inQty" min="1" required placeholder="Qty"></div>
-              <div class="field"><label>Store / Room Name</label><select id="inStore" required></select></div>
-              <div class="field"><label>Gate Pass No.</label><input type="text" id="inGatePass" placeholder="Gate Pass"></div>
-              <div class="field"><label>Received From</label><input type="text" id="inReceivedFrom" placeholder="Vendor"></div>
+              <div class="field"><label>Store / Room Name</label><input type="text" id="inStore" required placeholder="Room Name"></div>
+              <div class="field"><label>Gate Pass No.</label><input type="text" id="inGatePass" placeholder="Gate Pass No"></div>
+              <div class="field"><label>Received From</label><input type="text" id="inReceivedFrom" placeholder="Vendor / Supplier"></div>
             </div>
             <div class="actions">
               <button class="btn btn-primary" type="submit">💾 SUBMIT STOCK IN</button>
             </div>
           </form>
-          <div id="stockInMsg" class="msg"></div>
+          <div id="stockInMsg" class="search-message"></div>
         </section>
       </div>
 
-      <!-- VIEW: STOCK OUT -->
+      <!-- VIEW 3: STOCK OUT ENTRY -->
       <div id="viewStockOut" style="display: none;">
-        <section class="card">
+        <section class="card search-card">
           <h2 class="section-title">📤 Stock Out Entry Form</h2>
-          <p class="section-subtitle">Record inventory issuance from local database.</p>
-          <form style="margin-top: 15px;" onsubmit="event.preventDefault(); submitStockOut();">
+          <form onsubmit="event.preventDefault(); submitStockOut();" style="margin-top: 15px;">
             <div class="form-grid">
               <div class="field"><label>Out Date</label><input type="date" id="outDate" required></div>
               <div class="field"><label>Item Name</label><input type="text" id="outItem" required placeholder="Item name"></div>
               <div class="field"><label>Detail</label><input type="text" id="outDetail" placeholder="Detail"></div>
-              <div class="field"><label>Unit</label><input type="text" id="outUnit" placeholder="Pcs, Box, Mtr"></div>
+              <div class="field"><label>Unit</label><input type="text" id="outUnit" placeholder="e.g. Pcs, Box"></div>
               <div class="field"><label>Qty</label><input type="number" id="outQty" min="1" required placeholder="Qty"></div>
-              <div class="field"><label>Store / Room Name</label><select id="outStore" required></select></div>
+              <div class="field"><label>Store / Room Name</label><input type="text" id="outStore" required placeholder="Room Name"></div>
               <div class="field"><label>Issued By</label><input type="text" id="outIssuedBy" placeholder="Issued By"></div>
               <div class="field"><label>Issued To</label><input type="text" id="outIssuedTo" placeholder="Issued To"></div>
             </div>
@@ -390,35 +402,35 @@
               <button class="btn btn-primary" type="submit">📤 SUBMIT STOCK OUT</button>
             </div>
           </form>
-          <div id="stockOutMsg" class="msg"></div>
+          <div id="stockOutMsg" class="search-message"></div>
         </section>
       </div>
 
       <!-- ADMIN PANEL -->
-      <section id="adminPanel" class="card" style="display: none;">
+      <section id="adminPanel" class="card search-card" style="display: none; margin-top:22px;">
         <h2 class="section-title">🔐 Admin Panel</h2>
-        <p class="section-subtitle">User Management System</p>
         <div class="form-grid" style="margin-top: 15px;">
           <div class="field"><label>Username</label><input id="newUsername" type="text" placeholder="Username"></div>
           <div class="field"><label>Password</label><input id="newPassword" type="password" placeholder="Password"></div>
+          <div class="field"><label>Designation</label><input id="newDesignation" type="text" placeholder="Designation"></div>
           <div class="field">
             <label>Role</label>
-            <select id="newRole"><option value="USER">USER</option><option value="ADMIN">ADMIN</option></select>
+            <select id="newRole"><option value="USER">USER Role</option><option value="ADMIN">ADMIN Role</option></select>
+          </div>
+          <div class="field">
+            <label>Access Privilege</label>
+            <select id="newAccessType">
+              <option value="ALL">All Access (Search, In, Out)</option>
+              <option value="SEARCH">Search Dashboard Only</option>
+              <option value="STOCK_IN">Stock In Only</option>
+              <option value="STOCK_OUT">Stock Out Only</option>
+            </select>
           </div>
         </div>
         <div class="actions">
-          <button class="btn btn-primary" onclick="addUser()">➕ ADD USER</button>
+          <button class="btn btn-primary" onclick="addNewUser()">➕ ADD USER</button>
         </div>
-        <div id="adminMsg" class="msg"></div>
-
-        <div class="table-wrap" style="margin-top: 15px;">
-          <table>
-            <thead>
-              <tr><th>Username</th><th>Role</th><th>Status</th><th>Actions</th></tr>
-            </thead>
-            <tbody id="usersBody"></tbody>
-          </table>
-        </div>
+        <div id="adminMsg" class="search-message"></div>
       </section>
     </main>
 
@@ -428,103 +440,64 @@
     </footer>
   </div>
 
-  <!-- PASSWORD MODAL -->
-  <div id="ownPasswordModal" class="modal">
-    <div class="modal-content">
-      <h3>🔑 Change Password</h3>
-      <div class="field"><label>Current Password</label><input id="currentOwnPass" type="password"></div>
-      <div class="field"><label>New Password</label><input id="newOwnPass" type="password"></div>
-      <div id="modalPassMsg" class="msg"></div>
-      <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 15px;">
-        <button class="btn btn-light" onclick="closeOwnPasswordModal()">Cancel</button>
-        <button class="btn btn-primary" onclick="submitOwnPasswordChange()">Update Password</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- BROWSER DATABASE & APP SCRIPT LOGIC -->
   <script>
-    const DEFAULT_ROOMS = [
-      "IT Accessories Room 1", "Container (Outside)", "IT Accessories Room 2", 
-      "Sanitary/PVC/Plumbing Material Room", "Electrical Material Room", "IT/Housekeeping/ELV Room",
-      "Network Material Room", "HVAC Material Room", "Generator Parts Room", "General Items Room"
-    ];
+    // INITIALIZE BROWSER LOCAL STORAGE DATABASE
+    function initDatabase() {
+      if(!localStorage.getItem("MB_USERS")) {
+        const defaultUsers = [
+          { username: "admin", passwordHash: btoa("Admin@123"), role: "ADMIN", accessType: "ADMIN", designation: "System Administrator", active: true, failedAttempts: 0 }
+        ];
+        localStorage.setItem("MB_USERS", JSON.stringify(defaultUsers));
+      }
+      if(!localStorage.getItem("MB_INVENTORY")) {
+        localStorage.setItem("MB_INVENTORY", JSON.stringify([]));
+      }
+    }
 
     let currentUser = null;
 
-    // Initialize Database in LocalStorage
-    function initDatabase() {
-      if(!localStorage.getItem("MB_USERS")) {
-        const users = [
-          { username: "admin", passwordHash: btoa("Admin@123"), role: "ADMIN", active: true, failedAttempts: 0 }
-        ];
-        localStorage.setItem("MB_USERS", JSON.stringify(users));
-      }
-      if(!localStorage.getItem("MB_INVENTORY")) {
-        const sampleInventory = [
-          { roomName: "IT Accessories Room 1", itemName: "Cat6 Cable Roll", detail: "Networking", description: "Blue 300m Box", quantity: 25 },
-          { roomName: "Electrical Material Room", itemName: "LED Bulb 12W", detail: "Lighting", description: "Philips White", quantity: 15 },
-          { roomName: "IT/Housekeeping/ELV Room", itemName: "RJ45 Connectors", detail: "Networking", description: "Pack of 100", quantity: 0 }
-        ];
-        localStorage.setItem("MB_INVENTORY", JSON.stringify(sampleInventory));
-      }
-      populateRoomDropdowns();
-    }
-
-    function login() {
-      const u = document.getElementById("username").value.trim();
-      const p = document.getElementById("password").value;
+    function handleLogin() {
+      const u = document.getElementById("loginUsername").value.trim();
+      const p = document.getElementById("loginPassword").value;
       const msg = document.getElementById("loginMsg");
 
       const users = JSON.parse(localStorage.getItem("MB_USERS")) || [];
       const user = users.find(x => x.username.toLowerCase() === u.toLowerCase());
 
-      if(!user) {
-        msg.className = "msg error";
-        msg.textContent = "Invalid username or password.";
+      if(!user || user.passwordHash !== btoa(p)) {
+        msg.className = "search-message error";
+        msg.textContent = "Invalid username or password!";
         return;
       }
 
-      if(!user.active) {
-        msg.className = "msg error";
-        msg.textContent = "Account locked due to 3 failed attempts. Contact Admin.";
-        return;
-      }
-
-      if(user.passwordHash !== btoa(p)) {
-        user.failedAttempts = (user.failedAttempts || 0) + 1;
-        if(user.failedAttempts >= 3) {
-          user.active = false;
-          msg.textContent = "Account locked due to 3 consecutive failed attempts.";
-        } else {
-          msg.textContent = `Invalid password. Warning: ${3 - user.failedAttempts} attempt(s) remaining.`;
-        }
-        localStorage.setItem("MB_USERS", JSON.stringify(users));
-        msg.className = "msg error";
-        return;
-      }
-
-      user.failedAttempts = 0;
-      localStorage.setItem("MB_USERS", JSON.stringify(users));
       currentUser = user;
+      document.getElementById("loginView").style.display = "none";
+      document.getElementById("mainDashboardView").style.display = "block";
 
-      document.getElementById("loginSection").style.display = "none";
-      document.getElementById("dashboardSection").style.display = "block";
       document.getElementById("badgeName").textContent = user.username;
-      document.getElementById("badgeRole").textContent = user.role === "ADMIN" ? "System Administrator" : "Operations Member";
+      document.getElementById("badgeRole").textContent = user.designation || user.role;
 
       if(user.role === "ADMIN") {
         document.getElementById("adminPanel").style.display = "block";
-        loadUsers();
       }
-      populateFilters();
-      switchView("HOME");
+
+      applyAccessPermissions(user);
+      filterSearchData();
     }
 
-    function logout() {
-      currentUser = null;
-      document.getElementById("dashboardSection").style.display = "none";
-      document.getElementById("loginSection").style.display = "flex";
+    function applyAccessPermissions(user) {
+      if(user.role === "ADMIN" || user.accessType === "ALL") return;
+
+      if(user.accessType === "SEARCH") {
+        document.getElementById("cardPortalStockIn").style.display = "none";
+        document.getElementById("cardPortalStockOut").style.display = "none";
+      } else if(user.accessType === "STOCK_IN") {
+        document.getElementById("cardPortalSearch").style.display = "none";
+        document.getElementById("cardPortalStockOut").style.display = "none";
+      } else if(user.accessType === "STOCK_OUT") {
+        document.getElementById("cardPortalSearch").style.display = "none";
+        document.getElementById("cardPortalStockIn").style.display = "none";
+      }
     }
 
     function switchView(view) {
@@ -534,84 +507,53 @@
       document.getElementById("viewStockOut").style.display = view === 'STOCK_OUT' ? 'block' : 'none';
     }
 
-    function toggleNavDropdown(e) {
-      e.stopPropagation();
-      const menu = document.getElementById("navDropdownMenu");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
-    function hideNavDropdown() { document.getElementById("navDropdownMenu").style.display = "none"; }
-
-    function toggleUserDropdown(e) {
-      e.stopPropagation();
-      const menu = document.getElementById("userDropdown");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
-
-    function populateRoomDropdowns() {
-      const inStore = document.getElementById("inStore");
-      const outStore = document.getElementById("outStore");
-      inStore.innerHTML = outStore.innerHTML = '<option value="">-- Select Room/Store --</option>';
-      DEFAULT_ROOMS.forEach(r => {
-        inStore.innerHTML += `<option value="${r}">${r}</option>`;
-        outStore.innerHTML += `<option value="${r}">${r}</option>`;
-      });
-    }
-
-    function populateFilters() {
-      const inv = JSON.parse(localStorage.getItem("MB_INVENTORY")) || [];
-      const rooms = [...new Set(inv.map(i => i.roomName))];
-      const items = [...new Set(inv.map(i => i.itemName))];
-
-      const rSel = document.getElementById("searchRoomSelect");
-      const iSel = document.getElementById("searchItemSelect");
-      rSel.innerHTML = '<option value="">All Rooms</option>';
-      iSel.innerHTML = '<option value="">All Items</option>';
-
-      rooms.forEach(r => rSel.innerHTML += `<option value="${r}">${r}</option>`);
-      items.forEach(i => iSel.innerHTML += `<option value="${i}">${i}</option>`);
-    }
-
-    function searchInventory() {
-      const room = document.getElementById("searchRoomSelect").value;
-      const item = document.getElementById("searchItemSelect").value;
-      const status = document.getElementById("searchStatusSelect").value;
+    function filterSearchData() {
+      const room = document.getElementById("roomInput").value.trim().toLowerCase();
+      const item = document.getElementById("itemInput").value.trim().toLowerCase();
+      const status = document.getElementById("stockStatusSelect").value;
 
       let inv = JSON.parse(localStorage.getItem("MB_INVENTORY")) || [];
 
-      if(room) inv = inv.filter(i => i.roomName === room);
-      if(item) inv = inv.filter(i => i.itemName === item);
-      if(status === "IN_STOCK") inv = inv.filter(i => i.quantity >= 20);
-      if(status === "LOW_STOCK") inv = inv.filter(i => i.quantity > 0 && i.quantity < 20);
-      if(status === "OUT_OF_STOCK") inv = inv.filter(i => i.quantity === 0);
+      if(room && room !== "all") inv = inv.filter(x => (x.roomName || "").toLowerCase().includes(room));
+      if(item && item !== "all") inv = inv.filter(x => (x.itemName || "").toLowerCase().includes(item));
+      
+      if(status === "IN_STOCK") inv = inv.filter(x => x.quantity >= 20);
+      if(status === "LOW_STOCK") inv = inv.filter(x => x.quantity > 0 && x.quantity < 20);
+      if(status === "OUT_OF_STOCK") inv = inv.filter(x => x.quantity === 0);
 
-      renderResults(inv);
+      renderSearchResults(inv);
     }
 
-    function renderResults(results) {
+    function renderSearchResults(results) {
       const body = document.getElementById("resultsBody");
       body.innerHTML = "";
+      document.getElementById("resultCount").textContent = `${results.length} records`;
 
       let tQty = 0, inS = 0, lowS = 0, outS = 0;
 
-      results.forEach(r => {
-        tQty += r.quantity;
-        if(r.quantity >= 20) inS++;
-        else if(r.quantity > 0) lowS++;
+      if(!results.length) {
+        body.innerHTML = '<tr><td colspan="6" class="empty">No inventory records found.</td></tr>';
+      }
+
+      results.forEach(row => {
+        tQty += Number(row.quantity) || 0;
+        if(row.quantity >= 20) inS++;
+        else if(row.quantity > 0) lowS++;
         else outS++;
 
-        const tr = document.createElement("tr");
-        let stColor = r.quantity >= 20 ? "#34d399" : r.quantity > 0 ? "#fbbf24" : "#f87171";
-        let stText = r.quantity >= 20 ? "🟢 In Stock" : r.quantity > 0 ? "🟡 Low Stock" : "🔴 Out Of Stock";
+        let color = row.quantity >= 20 ? '#34d399' : row.quantity > 0 ? '#fbbf24' : '#f87171';
+        let statusText = row.quantity >= 20 ? '🟢 In Stock' : row.quantity > 0 ? '🟡 Low Stock' : '🔴 Out Of Stock';
 
-        tr.innerHTML = `
-          <td>${r.roomName}</td>
-          <td><strong>${r.itemName}</strong></td>
-          <td>${r.detail || '-'}</td>
-          <td>${r.description || '-'}</td>
-          <td class="qty">${r.quantity}</td>
-          <td style="color:${stColor}; font-weight:700;">${stText}</td>
+        body.innerHTML += `
+          <tr>
+            <td>${row.roomName || '-'}</td>
+            <td><strong>${row.itemName || '-'}</strong></td>
+            <td>${row.detail || '-'}</td>
+            <td>${row.description || '-'}</td>
+            <td class="qty">${row.quantity || 0}</td>
+            <td style="color:${color}; font-weight:700;">${statusText}</td>
+          </tr>
         `;
-        body.appendChild(tr);
       });
 
       document.getElementById("totalVariants").textContent = results.length;
@@ -621,117 +563,119 @@
       document.getElementById("outOfStock").textContent = outS;
     }
 
-    function clearFilters() {
-      document.getElementById("searchRoomSelect").value = "";
-      document.getElementById("searchItemSelect").value = "";
-      document.getElementById("searchStatusSelect").value = "";
-      searchInventory();
+    // FEATURE: IMPORT GOOGLE SHEET DATA VIA CSV
+    function importOldDataCSV(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split("\n");
+        let inv = JSON.parse(localStorage.getItem("MB_INVENTORY")) || [];
+
+        for (let i = 1; i < lines.length; i++) {
+          const cols = lines[i].split(",");
+          if (cols.length >= 2) {
+            inv.push({
+              roomName: cols[0] ? cols[0].replace(/"/g, "").trim() : "General Store",
+              itemName: cols[1] ? cols[1].replace(/"/g, "").trim() : "Item",
+              detail: cols[2] ? cols[2].replace(/"/g, "").trim() : "",
+              description: cols[3] ? cols[3].replace(/"/g, "").trim() : "",
+              quantity: Number(cols[4]) || 0
+            });
+          }
+        }
+        localStorage.setItem("MB_INVENTORY", JSON.stringify(inv));
+        alert("Google Sheet CSV Data Imported Successfully!");
+        filterSearchData();
+      };
+      reader.readAsText(file);
+    }
+
+    // FEATURE: EXPORT REPORT CSV
+    function exportSearchResultsCSV() {
+      let inv = JSON.parse(localStorage.getItem("MB_INVENTORY")) || [];
+      if (!inv.length) return alert("No data to export!");
+
+      let csv = "Room,Item,Detail,Description,Quantity\n";
+      inv.forEach(row => {
+        csv += `"${row.roomName}","${row.itemName}","${row.detail}","${row.description}",${row.quantity}\n`;
+      });
+
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.setAttribute("href", url);
+      a.setAttribute("download", "Inventory_Report.csv");
+      a.click();
     }
 
     function submitStockIn() {
       const item = document.getElementById("inItem").value.trim();
-      const detail = document.getElementById("inDetail").value.trim();
       const qty = Number(document.getElementById("inQty").value);
-      const room = document.getElementById("inStore").value;
+      const room = document.getElementById("inStore").value.trim();
 
       let inv = JSON.parse(localStorage.getItem("MB_INVENTORY")) || [];
-      let match = inv.find(i => i.roomName === room && i.itemName.toLowerCase() === item.toLowerCase());
+      let match = inv.find(x => x.roomName.toLowerCase() === room.toLowerCase() && x.itemName.toLowerCase() === item.toLowerCase());
 
       if(match) {
         match.quantity += qty;
       } else {
-        inv.push({ roomName: room, itemName: item, detail: detail, description: "Stock In Received", quantity: qty });
+        inv.push({ roomName: room, itemName: item, detail: document.getElementById("inDetail").value, description: "Stock In", quantity: qty });
       }
 
       localStorage.setItem("MB_INVENTORY", JSON.stringify(inv));
-      document.getElementById("stockInMsg").className = "msg success";
-      document.getElementById("stockInMsg").textContent = "Stock In record updated successfully!";
-      populateFilters();
+      document.getElementById("stockInMsg").className = "search-message success";
+      document.getElementById("stockInMsg").textContent = "Stock In submitted successfully!";
+      filterSearchData();
     }
 
     function submitStockOut() {
       const item = document.getElementById("outItem").value.trim();
       const qty = Number(document.getElementById("outQty").value);
-      const room = document.getElementById("outStore").value;
+      const room = document.getElementById("outStore").value.trim();
 
       let inv = JSON.parse(localStorage.getItem("MB_INVENTORY")) || [];
-      let match = inv.find(i => i.roomName === room && i.itemName.toLowerCase() === item.toLowerCase());
+      let match = inv.find(x => x.roomName.toLowerCase() === room.toLowerCase() && x.itemName.toLowerCase() === item.toLowerCase());
 
       if(!match || match.quantity < qty) {
-        document.getElementById("stockOutMsg").className = "msg error";
-        document.getElementById("stockOutMsg").textContent = "Error: Item stock not sufficient!";
+        document.getElementById("stockOutMsg").className = "search-message error";
+        document.getElementById("stockOutMsg").textContent = "Error: Stock not available!";
         return;
       }
 
       match.quantity -= qty;
       localStorage.setItem("MB_INVENTORY", JSON.stringify(inv));
-      document.getElementById("stockOutMsg").className = "msg success";
-      document.getElementById("stockOutMsg").textContent = "Stock Out record updated successfully!";
-      populateFilters();
+      document.getElementById("stockOutMsg").className = "search-message success";
+      document.getElementById("stockOutMsg").textContent = "Stock Out submitted successfully!";
+      filterSearchData();
     }
 
-    function loadUsers() {
-      const users = JSON.parse(localStorage.getItem("MB_USERS")) || [];
-      const body = document.getElementById("usersBody");
-      body.innerHTML = "";
-
-      users.forEach(u => {
-        body.innerHTML += `
-          <tr>
-            <td><strong>${u.username}</strong></td>
-            <td>${u.role}</td>
-            <td>${u.active ? '🟢 Active' : '🔴 Locked'}</td>
-            <td>${u.username !== 'admin' ? `<button class="btn btn-light" onclick="toggleUser('${u.username}')">Toggle Lock</button>` : 'Protected'}</td>
-          </tr>
-        `;
-      });
+    function toggleNavDropdown(e) {
+      e.stopPropagation();
+      const menu = document.getElementById("navDropdownMenu");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+    function hideNavDropdown() { document.getElementById("navDropdownMenu").style.display = "none"; }
+    function toggleUserDropdown(e) {
+      e.stopPropagation();
+      const menu = document.getElementById("userDropdown");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
     }
 
-    function addUser() {
-      const u = document.getElementById("newUsername").value.trim();
-      const p = document.getElementById("newPassword").value;
-      const r = document.getElementById("newRole").value;
-
-      let users = JSON.parse(localStorage.getItem("MB_USERS")) || [];
-      if(users.some(x => x.username.toLowerCase() === u.toLowerCase())) return alert("User exists!");
-
-      users.push({ username: u, passwordHash: btoa(p), role: r, active: true, failedAttempts: 0 });
-      localStorage.setItem("MB_USERS", JSON.stringify(users));
-      loadUsers();
+    function handleLogout() {
+      currentUser = null;
+      document.getElementById("mainDashboardView").style.display = "none";
+      document.getElementById("loginView").style.display = "flex";
     }
 
-    function toggleUser(u) {
-      let users = JSON.parse(localStorage.getItem("MB_USERS")) || [];
-      let match = users.find(x => x.username === u);
-      if(match) {
-        match.active = !match.active;
-        match.failedAttempts = 0;
-      }
-      localStorage.setItem("MB_USERS", JSON.stringify(users));
-      loadUsers();
+    function clearSearchFilters() {
+      document.getElementById("roomInput").value = "";
+      document.getElementById("itemInput").value = "";
+      document.getElementById("stockStatusSelect").value = "";
+      filterSearchData();
     }
-
-    function openOwnPasswordModal() { document.getElementById("ownPasswordModal").style.display = "flex"; }
-    function closeOwnPasswordModal() { document.getElementById("ownPasswordModal").style.display = "none"; }
-    function submitOwnPasswordChange() {
-      const cur = document.getElementById("currentOwnPass").value;
-      const nw = document.getElementById("newOwnPass").value;
-
-      if(currentUser.passwordHash !== btoa(cur)) return alert("Current password wrong!");
-
-      let users = JSON.parse(localStorage.getItem("MB_USERS")) || [];
-      let match = users.find(x => x.username === currentUser.username);
-      if(match) match.passwordHash = btoa(nw);
-
-      localStorage.setItem("MB_USERS", JSON.stringify(users));
-      alert("Password updated!");
-      closeOwnPasswordModal();
-    }
-
-    document.addEventListener("click", () => {
-      hideNavDropdown();
-      document.getElementById("userDropdown").style.display = "none";
-    });
 
     initDatabase();
   </script>
